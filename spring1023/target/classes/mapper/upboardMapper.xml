@@ -7,25 +7,27 @@
   	<insert id="add" parameterType="upvo">
   	insert into upboard values(upboard_seq.nextVal, #{title}, #{writer}, #{content}, #{imgn}, 0, #{reip}, sysdate)
   	</insert>
-  	
-  	<select id="list" resultType="upvo">
-  	select * from upboard order by 1 desc
+  	<!-- page process 1 -->
+  	<select id="list" resultType="upvo" parameterType="map">
+  		SELECT num,title,writer,imgn,hit,reip,bdate FROM (
+SELECT ROWNUM r_num, a.* FROM (
+SELECT num,title,writer,imgn,hit,reip,bdate FROM UPBOARD
+ORDER BY 1 DESC
+) a
+) WHERE r_num BETWEEN #{begin} AND #{end}
   	</select>
   	
-  	<update id="hit" parameterType="int">
-  	UPDATE upboard SET hit=hit+1 WHERE num=#{num}
+  	<select id="totalCount" resultType="int">
+  		select count(*) cnt from upboard
+  	</select>
+  	<select id="getItem" parameterType="int" resultType="upvo">
+  		select * from upboard where num = #{num}
+  	</select>
+  	<update id="updateItem" parameterType="upvo">
+  		Update upboard set title=#{title}, writer=#{writer}, content=#{content}, imgn=#{imgn}, reip=#{reip} where num=#{num}
   	</update>
-  	
   	<delete id="del" parameterType="int">
-  	DELETE FROM upboard WHERE num=#{num}
-  	</delete>
-  	
-  	<update id="update" parameterType="upvo">
-  	Update upboard set subject=#{subject}, writer=#{writer}, content=#{content}, reip=#{reip} where num=#{num}
-  	</update>
-  	
-  	<select id="detail" parameterType="int" resultType="upvo">
-  	select * from upboard where num=#{num}
-  	</select>
+      delete from upboard where num = #{num}
+   </delete>
   </mapper>
 	

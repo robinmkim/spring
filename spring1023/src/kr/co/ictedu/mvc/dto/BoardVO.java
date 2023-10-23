@@ -10,9 +10,16 @@ public class BoardVO {
 	private String bdate;
 	private String reip;
 	private String imgn;
+	private int cnt;
 	private MultipartFile mfile;
 	private int hit;
 	
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
 	public String getTitle() {
 		return title;
 	}
