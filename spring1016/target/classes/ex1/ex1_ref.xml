@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 의존관계의 객체 DI bean으로 등록한다 -->
+	<!-- 의존 대상이 되는 객체를  bean으로 등록한다 -->
+	<bean name="resb" class="ex1.ResourceB">
+		<property name="uname" value="ICT예비개발자"/>
+	</bean>
+	<!-- ResourceB를 주입받을 객체 -->
+	<bean id="testA" class="ex1.MyTestA">
+	<!-- 의존 대상이 되는 bean의 아이디를 주입받을 bean에서 setter로 등록, ref="id"값
+		refa.setB(new ResourceB());
+	 -->
+		<property name="b" ref="resb"/>
+	</bean>
+</beans>

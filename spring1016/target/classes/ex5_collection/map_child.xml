@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- map_child.xml -->
+	
+	<import resource="map.xml"/>
+	<!-- Bean parent를 사용해서 부모와 합쳐서 반환 받고 싶다면 map merge="true" -->
+	<bean id="map2" parent="map">
+		<property name="map">
+			<map>
+				<entry key="addr" value="서울시 강남구 강남대로"/>
+				<entry key="phone" value="02-888-8988"/>
+			</map>
+		</property>
+	</bean>
+
+</beans>

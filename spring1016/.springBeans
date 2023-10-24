@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.9.12.202003180620-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+		<config>src/ex1/ex1_ref.xml</config>
+		<config>src/ex2/life.xml</config>
+		<config>src/ex3/lazy.xml</config>
+		<config>src/ex4/ex1_const.xml</config>
+		<config>src/ex5_collection/list.xml</config>
+		<config>src/ex5_collection/map.xml</config>
+		<config>src/ex5_collection/map_child.xml</config>
+		<config>src/ex5_collection/prop.xml</config>
+		<config>src/ex6/ex1_auto.xml</config>
+	</configs>
+	<autoconfigs>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

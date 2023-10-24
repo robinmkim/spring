@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="ltv" class="ex1.LgTV">
+		<property name="msg" value="올레드"/>
+	</bean>
+	<bean id="stv" class="ex1.SamsungTV">
+		<property name="msg" value="OLED"/>
+	</bean>
+</beans>

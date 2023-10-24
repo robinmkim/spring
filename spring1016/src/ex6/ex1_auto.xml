@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<context:annotation-config />
+	<bean id="msg" class="java.lang.String">
+		<constructor-arg value="오늘은 10월 16일 입니다."/>
+	</bean>
+	<bean id="msg2" class="java.lang.String">
+		<qualifier value="ictToday"/>
+		<constructor-arg value="오늘은 2023년 10월 17일 입니다."></constructor-arg>
+	</bean>
+	<bean id="auto1" class="ex6.Ex1_AutoWired">
+		<!--<property name="msg" ref="msg"/>-->
+	</bean>
+</beans>

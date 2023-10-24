@@ -47,12 +47,6 @@ public class BoardDao implements BoardDaoInter{
 
 	@Override
 	public void updateItem(BoardVO vo) {
-		System.out.println("제목: " + vo.getTitle());
-		System.out.println("컨텐츠: " + vo.getContent());
-		System.out.println("이미지: " + vo.getImgn());
-		System.out.println("작성자: " + vo.getWriter());
-		System.out.println("아이피: " + vo.getReip());
-		System.out.println("================");
 		ss.selectOne("upboard.updateItem", vo);
 	}
 
