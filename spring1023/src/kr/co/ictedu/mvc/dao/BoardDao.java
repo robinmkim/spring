@@ -36,8 +36,8 @@ public class BoardDao implements BoardDaoInter{
 	}
 
 	@Override
-	public int getTotal() {
-		return ss.selectOne("upboard.totalCount");
+	public int getTotal(Map<String, String> map) {
+		return ss.selectOne("upboard.totalCount", map);
 	}
 
 	@Override

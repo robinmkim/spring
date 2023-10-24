@@ -10,15 +10,45 @@
   	<!-- page process 1 -->
   	<select id="list" resultType="upvo" parameterType="map">
   		SELECT num,title,writer,imgn,hit,reip,bdate FROM (
-SELECT ROWNUM r_num, a.* FROM (
-SELECT num,title,writer,imgn,hit,reip,bdate FROM UPBOARD
-ORDER BY 1 DESC
-) a
-) WHERE r_num BETWEEN #{begin} AND #{end}
+		SELECT ROWNUM r_num, a.* FROM (
+		SELECT num,title,writer,imgn,hit,reip,bdate FROM UPBOARD
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						title like '%'||#{searchValue}||'%'
+					</when>
+					<when test="searchType == 2">
+						writer like '%'||#{searchValue}||'%'
+					</when>
+					<when test="searchType == 3">
+						content like '%'||#{searchValue}||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+		ORDER BY 1 DESC
+		) a
+		) WHERE r_num BETWEEN #{begin} AND #{end}
   	</select>
   	
-  	<select id="totalCount" resultType="int">
+  	<select id="totalCount" resultType="int" parameterType="map">
   		select count(*) cnt from upboard
+  		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						title like '%'||#{searchValue}||'%'
+					</when>
+					<when test="searchType == 2">
+						writer like '%'||#{searchValue}||'%'
+					</when>
+					<when test="searchType == 3">
+						content like '%'||#{searchValue}||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
   	</select>
   	<select id="getItem" parameterType="int" resultType="upvo">
   		select * from upboard where num = #{num}
@@ -29,5 +59,6 @@ ORDER BY 1 DESC
   	<delete id="del" parameterType="int">
       delete from upboard where num = #{num}
    </delete>
+   
   </mapper>
 	

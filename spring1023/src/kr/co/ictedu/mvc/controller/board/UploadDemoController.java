@@ -91,8 +91,16 @@ public class UploadDemoController {
 		System.out.println("print parameter");
 		System.out.println("print parametere when search");
 		String cPage = paramMap.get("cPage");
+	
+		
+		
+		System.out.println("cPage: " + cPage);
+		System.out.println("searchType: " + paramMap.get("searchType"));
+		System.out.println("searchValue: " + paramMap.get("searchValue"));
+		System.out.println("****************************************");
+		
 		//1. totalRecord
-		pageVO.setTotalRecord(boardDaoInter.getTotal());
+		pageVO.setTotalRecord(boardDaoInter.getTotal(paramMap));
 		int totalRecord = pageVO.getTotalRecord();
 		System.out.println("1. total record: " + totalRecord);
 		
@@ -135,6 +143,8 @@ public class UploadDemoController {
 		}
 		System.out.println("6. startPage: " + startPage);
 		System.out.println("6. endPage: " + endPage);
+		m.addAttribute("searchValue", paramMap.get("searchValue"));
+		m.addAttribute("searchType", paramMap.get("searchType"));
 		m.addAttribute("startPage", startPage);
 		m.addAttribute("endPage", endPage);
 		m.addAttribute("page", pageVO);
