@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<c:set var="rPath" value="${pageContext.request.contextPath}/resources/"/>
+<%-- 경로 설정 --%>
+<c:set var="rPath" value="${pageContext.request.contextPath}/resources"/>
+<c:set var="cPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
  <head>
@@ -9,11 +11,12 @@
   <meta charset="euc-kr">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="resources/css/style.css"/>
+  <link rel="stylesheet" href="${rPath }/css/style.css"/>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- <script src="<%=application.getContextPath() %>/resources/js/ajaxdemo1.js"></script>
+<!-- ajax를 링크 걸기 -->
+<script src="${rPath }/js/ajaxdemo1.js"></script>
  <style>
  a{
 	text-decoration: none;
@@ -110,7 +113,7 @@ $(function(){
 	//console.log("log00 => "+$('.mybgColor').attr('class'));
 	$('#item1').click(function(){
 		//$(this).attr('class',firstColor)
-		console.log("log => "+$('.mybgColor').attr('class'));
+		//console.log("log => "+$('.mybgColor').attr('class'));
 		$('.mybgColor').attr('class',function(){
 			$(this).attr('style','background-color:#0dcaf0');
 			/*
@@ -159,68 +162,108 @@ $(function(){
  <body>
 <header class="text-white text-center" >
 <div class="d-flex flex-row-reverse mybgColor">
-  <div class="p-2 bg-info"><a href="#" class="nav-link text-white" id="item1">Flex item 1</a></div>
-  <div class="p-2 bg-warning"><a href="#" class="nav-link text-white" id="item2">Flex item 2</a></div>
-  <div class="p-2 bg-primary"><a href="#" class="nav-link text-white" id="item3">회원가입</a></div>
-</div>
+  <div class="p-2 bg-info">
+  <a href="#" class="nav-link text-white" id="item1">Flex item 1</a>
+  </div>
+  <%-- 로그인 전 --%>
+  <c:choose>
+  <c:when test="${sessionScope.sessionID == null }">
+	      <div class="p-2 bg-warning">
+		  <a href="${cPath }/login/loginForm" class="nav-link text-white" id="item2">Login</a>
+		  </div>
+		  <div class="p-2 bg-primary">
+		  <a href="${cPath }/member/memForm" class="nav-link text-white" id="item3">회원가입</a>
+		  </div>
+	 
+  </c:when>
+  <c:when test="${sessionScope.sessionID != null }">
+  <%-- 로그인 후 --%>
+	      <div class="p-2 bg-warning">
+		  <a href="${cPath }/login/logout" class="nav-link text-white" id="item2">log out</a>
+		  </div>
+		  <div class="p-2 bg-primary">
+		  <a href="${cPath }/member/mypage" class="nav-link text-white" id="item3">마이페이지</a>
+		  </div>
+  </c:when>
+  </c:choose>
+ </div>
+  
+  
         <!-- Carousel -->
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
   <!-- Indicators/dots -->
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-  </div>
-  
-  <!-- The slideshow/carousel -->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="resources/image/d1.jpg" alt="Kosmo113" class="d-block" style="width:100%">
-      <div class="carousel-caption">
-        <h3>UI 요구사항 확인하기,UI 설계하기 </h3>
-        <p>jQuery 를 이용하여 제공받은 샘플파일에서 아래 요구사항대로 구현합니다.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="resources/image/d2.jpg" alt="Carousel" class="d-block" style="width:100%">
-      <div class="carousel-caption">
-        <h3>Carousel 기능을 CSS3로!</h3>
-        <p>Thank you, CSS3!</p>
-      </div> 
-    </div>
-    <div class="carousel-item">
-      <img src="resources/image/d3.jpg" alt="JSP" class="d-block" style="width:100%">
-      <div class="carousel-caption">
-        <h3>UI 요구사항 확인하기,UI 설계하기 </h3>
-        <p>jQuery 를 이용하여 제공받은 샘플파일에서 아래 요구사항대로 구현합니다.</p>
-      </div>  
-    </div>
-  </div>
-  
-  <!-- Left and right controls/icons -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-</div>  
-</header>
-<%--bg-dark navbar-dark --%>
-    <nav class="navbar navbar-expand-sm mybgColor" >
-     <div class="container-fluid" >
-        <ul class="navbar-nav" >
-            <li class="nav-item"><a href="main" class="nav-link active" >Home</a></li>
-            <li class="nav-item"><a href="fboard" class="nav-link">Board</a></li>
-            <li class="nav-item"><a href="ajaxBoard" class="nav-link">AjaxBoard</a></li>
-            <li class="nav-item"><a href="upList" class="nav-link">UpList</a></li>            
-            <li class="nav-item"><a href="#" class="nav-link">Portfolio</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Profile</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
-        </ul>
-        <form class="d-flex">
-        <input class="form-control me-2" type="text" placeholder="Search" name="searchv" id="searchv">
-        <button class="btn btn-primary" type="button">Search</button>
-        </form>
-      </div>
-    </nav>
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#demo" data-bs-slide-to="0"
+					class="active"></button>
+				<button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+				<button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+			</div>
+			<c:choose>
+				<c:when test="${sessionScope.sessionID == null }">
+					<c:set var="carouselMsg"
+						value="jQuery 를 이용하여 제공받은 샘플파일에서 아래 요구사항대로 구현합니다."/>
+				</c:when>
+				<c:otherwise>
+					<c:set var="carouselMsg"
+						value="${sessionScope.sessionName}님 좋은 하루 입니다."/>
+				</c:otherwise>
+			</c:choose>
+
+			<!-- The slideshow/carousel -->
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="${rPath}/image/d1.jpg" alt="Kosmo113" class="d-block"
+						style="width: 100%">
+					<div class="carousel-caption">
+						<h3>UI 요구사항 확인하기,UI 설계하기</h3>
+						<p>${carouselMsg}</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="${rPath}/image/d2.jpg" alt="Carousel" class="d-block"
+						style="width: 100%">
+					<div class="carousel-caption">
+						<h3>Carousel 기능을 CSS3로!</h3>
+						<p>Thank you, ${carouselMsg}!</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="${rPath}/image/d3.jpg" alt="JSP" class="d-block"
+						style="width: 100%">
+					<div class="carousel-caption">
+						<h3>UI 요구사항 확인하기,UI 설계하기</h3>
+						<p>${carouselMsg}</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Left and right controls/icons -->
+			<button class="carousel-control-prev" type="button"
+				data-bs-target="#demo" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			</button>
+			<button class="carousel-control-next" type="button"
+				data-bs-target="#demo" data-bs-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</button>
+		</div>
+	</header>
+	<%--bg-dark navbar-dark --%>
+	<nav class="navbar navbar-expand-sm mybgColor">
+		<div class="container-fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a href="main" class="nav-link active">Home</a></li>
+				<li class="nav-item"><a href="fboard" class="nav-link">Board</a></li>
+				<li class="nav-item"><a href="ajaxBoard" class="nav-link">AjaxBoard</a></li>
+				<li class="nav-item"><a href="upList" class="nav-link">UpList</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Portfolio</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Profile</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+			</ul>
+			<form class="d-flex">
+				<input class="form-control me-2" type="text" placeholder="Search"
+					name="searchv" id="searchv">
+				<button class="btn btn-primary" type="button">Search</button>
+			</form>
+		</div>
+	</nav>

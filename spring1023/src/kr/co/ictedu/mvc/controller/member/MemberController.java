@@ -25,17 +25,17 @@ import kr.co.ictedu.mvc.dto.MemberDTO;
 @Controller
 public class MemberController {
 	
-	@GetMapping("/memForm")
-	public ModelAndView memForm(){
-		ModelAndView mav = new ModelAndView("member/memberForm");
-		return mav;
-	}
-	
-//	//단순하게 뷰만 반환
 //	@GetMapping("/memForm")
-//	public String memForm() {
-//		return "member/memberFrom";
+//	public ModelAndView memForm(){
+//		ModelAndView mav = new ModelAndView("member/memberForm");
+//		return mav;
 //	}
+	
+	//단순하게 뷰만 반환
+	@GetMapping("/memForm")
+	public String memForm() {
+		return "member/memberFrom";
+	}
 	
 	//id중복 체크
 	//Model m : View로 값을 전달 할 때 : mav.addObject 

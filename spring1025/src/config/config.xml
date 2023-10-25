@@ -7,5 +7,6 @@
 		<typeAlias type="kr.co.ictedu.mvc.dto.FboardDTO" alias="fvo" />
 		<typeAlias type="kr.co.ictedu.mvc.dto.BoardVO" alias="upvo" />
 		<typeAlias type="kr.co.ictedu.mvc.dto.BoardCommDTO" alias="upcommvo" />
+		<typeAlias type="kr.co.ictedu.mvc.dto.MemberVO" alias="mvo" />
 	</typeAliases>
 </configuration>
