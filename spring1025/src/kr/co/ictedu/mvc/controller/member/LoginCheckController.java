@@ -26,7 +26,7 @@ public class LoginCheckController {
 		return "member/loginform";
 	}
 	@PostMapping("/loginProcess")
-	public ModelAndView loginProcess(HttpSession session,
+	public ModelAndView logfinProcess(HttpSession session,
 			HttpServletRequest request, MemberVO vo, 
 			@RequestHeader("User-Agent") String userAgent) {
 		ModelAndView mav = new ModelAndView("redirect:/main");
@@ -44,7 +44,7 @@ public class LoginCheckController {
 	}
 	
 	@GetMapping("/logout")
-	public ModelAndView logoutProcess(HttpSession session, HttpServletRequest request) {
+	public ModelAndView logfoutProcess(HttpSession session, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		session.removeAttribute("sessionName");
 		session.removeAttribute("sessionID");

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.ictedu.mvc.dto.MemberVO;
+import kr.co.ictedu.mvc.dto.MyLoginLoggerVO;
 
 @Repository
 public class MemberDao implements MemberDaoInter {
@@ -43,6 +44,16 @@ public class MemberDao implements MemberDaoInter {
 	@Override
 	public int getCnt() {
 		return 0;
+	}
+
+	@Override
+	public void addLoginLog(MyLoginLoggerVO vo) {
+		ss.insert("mem.logger_in", vo);
+	}
+
+	@Override
+	public List<MyLoginLoggerVO> logList(String idn) {
+		return ss.selectList("mem.logger_list", idn);
 	}
 
 }

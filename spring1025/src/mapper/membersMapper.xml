@@ -17,5 +17,16 @@
 	<select id="mypage" parameterType="String" resultType="mvo">
 		select num, id, name, tel, email from members where id=#{id}
 	</select>
+	<insert id="logger_in" parameterType="lvo">
+		insert into myloginlog values(myloginlog_seq.nextVal, #{idn}, #{reip}, #{uagent}, #{status}, sysdate)
+	</insert>
+	<select id="logger_list" parameterType="String" resultType="lvo">
+		select * from myloginlog
+		<if test="idn != admin">
+			<where>
+				idn = #{idn}
+			</where>
+		</if>
+	</select>
 </mapper>
 	

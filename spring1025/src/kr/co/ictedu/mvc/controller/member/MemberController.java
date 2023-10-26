@@ -1,5 +1,7 @@
 package kr.co.ictedu.mvc.controller.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.ictedu.mvc.dao.MemberDaoInter;
 import kr.co.ictedu.mvc.dto.MemberVO;
+import kr.co.ictedu.mvc.dto.MyLoginLoggerVO;
 
 @Controller
 @RequestMapping("/member")
@@ -48,8 +51,10 @@ public class MemberController {
 	}
 	
 	@GetMapping("/mypage")
-	public String myPage(HttpSession session) {
+	public String myPage(HttpSession session, Model m) {
 		if(session.getAttribute("sessionID") != null) {
+			List<MyLoginLoggerVO> list = memberDaoInter.logList((String) session.getAttribute("sessionID"));
+			m.addAttribute("list", list);
 			return "member/mypage";			
 		}
 		return "redirect:/main";
