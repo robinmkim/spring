@@ -9,5 +9,6 @@
 		<typeAlias type="kr.co.ictedu.mvc.dto.BoardCommDTO" alias="upcommvo" />
 		<typeAlias type="kr.co.ictedu.mvc.dto.MemberVO" alias="mvo" />
 		<typeAlias type="kr.co.ictedu.mvc.dto.MyLoginLoggerVO" alias="lvo" />
+		<typeAlias type="kr.co.ictedu.mvc.dto.SurveyVO" alias="svo" />
 	</typeAliases>
 </configuration>
