@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mem">
+	<insert id="add" parameterType="mvo">
+		insert into members values(members_seq.nextVal, #{id}, #{pwd},
+		#{name}, #{email}, #{tel}, #{reip}, sysdate)
+	</insert>
+	<select id="idcheck" parameterType="String" resultType="int">
+		select count(*) cnt from members where id=#{id}
+	</select>
+	<select id="logincheck" parameterType="mvo" resultType="mvo">
+		select id, name from members where id=#{id} and pwd=#{pwd}
+	</select>
+	<select id="mypage" parameterType="String" resultType="mvo">
+		select num, id, name, tel, email from members where id=#{id}
+	</select>
+	<insert id="logger_in" parameterType="lvo">
+		insert into myloginlog values(myloginlog_seq.nextVal, #{idn}, #{reip}, #{uagent}, #{status}, sysdate)
+	</insert>
+	<select id="logger_list" parameterType="String" resultType="lvo">
+		select * from myloginlog
+		<if test="idn != admin">
+			<where>
+				idn = #{idn}
+			</where>
+		</if>
+	</select>
+</mapper>
+	
