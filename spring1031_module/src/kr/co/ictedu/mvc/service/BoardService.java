@@ -1,6 +1,7 @@
 package kr.co.ictedu.mvc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,13 @@ public class BoardService {
 		dao.boardAdd(vo);
 		dao.boardAddImg(list);
 		dao.boardAddVideo(bvvo);
+	}
+	
+	public List<BoardVO> boardList(Map<String, String> map){
+		return dao.boardList(map);
+	}
+	
+	public int getTotal(Map<String, String> map) {
+		return dao.getTotal(map);
 	}
 }

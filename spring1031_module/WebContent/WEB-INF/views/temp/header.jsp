@@ -251,7 +251,7 @@ $(function(){
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="${cPath}/fboard/fboardList">FBoard</a></li>
-            <li><a class="dropdown-item" href="${cPath}/board/boardList">Board</a></li>
+            <li><a class="dropdown-item" href="${cPath}/board/boardlist">Board</a></li>
             <li><a class="dropdown-item" href="#">Something</a></li>
             </ul>
             

@@ -55,7 +55,7 @@
 			<div class="form-group" style="text-align: right; margin-top: 10px;">
 				<button type="submit" class="btn btn-primary">등록</button>
 				 <input type="button" value="리스트"  class="btn btn-danger"
-				 onclick="location='upList'"
+				 onclick="location='boardlist'"
 				  />
 			</div>
 		</form>

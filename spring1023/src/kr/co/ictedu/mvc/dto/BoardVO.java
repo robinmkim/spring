@@ -13,6 +13,7 @@ public class BoardVO {
 	private int cnt;
 	private MultipartFile mfile;
 	private int hit;
+	private String iname;
 	
 	public int getCnt() {
 		return cnt;
@@ -74,4 +75,18 @@ public class BoardVO {
 	public void setReip(String reip) {
 		this.reip = reip;
 	}
+	public String getIname() {
+		return iname;
+	}
+	public void setIname(String iname) {
+		this.iname = iname;
+	}
+	@Override
+	public String toString() {
+		return "BoardVO [num=" + num + ", title=" + title + ", writer=" + writer + ", content=" + content + ", bdate="
+				+ bdate + ", reip=" + reip + ", imgn=" + imgn + ", cnt=" + cnt + ", mfile=" + mfile + ", hit=" + hit
+				+ ", iname=" + iname + "]";
+	}
+	
+	
 }

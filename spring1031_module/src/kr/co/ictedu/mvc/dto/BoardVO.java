@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardVO {
+	private int num;
 	private String title;
 	private String writer;
 	private String content;
@@ -13,7 +14,15 @@ public class BoardVO {
 	private String bdate;
 	private List<MultipartFile> mflist;
 	private MultipartFile vfile;
+	private String iname;
+	private int cnt;
 	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -69,6 +78,23 @@ public class BoardVO {
 	public void setVfile(MultipartFile vfile) {
 		System.out.println("vfile");
 		this.vfile = vfile;
+	}
+	public String getIname() {
+		return iname;
+	}
+	public void setIname(String iname) {
+		this.iname = iname;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	@Override
+	public String toString() {
+		return "BoardVO [title=" + title + ", writer=" + writer + ", content=" + content + ", hit=" + hit + ", reip="
+				+ reip + ", bdate=" + bdate + ", mflist=" + mflist + ", vfile=" + vfile + "]";
 	}
 	
 	

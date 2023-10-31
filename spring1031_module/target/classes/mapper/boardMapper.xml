@@ -11,18 +11,99 @@
 	</insert>
 	<insert id="addimg" parameterType="java.util.List">
 		<selectKey keyProperty="id" resultType="int" order="BEFORE">
-			select board_seq.currVal from dual
+			select
+			board_seq.currVal from dual
 		</selectKey>
 		<foreach collection="list" item="e" separator=" "
 			open="insert all" close="select * from dual">
 			into board_image values(#{id},
-			#{e.iname}, #{e.reip}, sysdate, #{e.isThumb})
+			#{e.iname},
+			#{e.reip}, sysdate, #{e.isThumb})
 		</foreach>
 	</insert>
 	<insert id="addvideo" parameterType="bvvo">
-		INSERT INTO board_video VALUES (board_video_seq.nextVal, board_seq.currVal,
-		#{vname}, #{reip}, sysdate)
+		INSERT INTO board_video
+		VALUES (board_video_seq.nextVal, board_seq.currVal,
+		#{vname}, #{reip},
+		sysdate)
 	</insert>
+
+	<select id="list" resultType="bvo" parameterType="map">
+		SELECT num,
+		<choose>
+			<when test="searchValue != null and searchType != null">
+				<choose>
+					<when test="searchType == 1">
+				<![CDATA[ 
+		     	 replace(title,#{searchValue},'<span class="searchCls">${searchValue}</span>') title,writer,
+		       ]]></when>
+					<when test="searchType == 2">
+				<![CDATA[ 
+		      title,replace(writer,#{searchValue},'<span class="searchCls">${searchValue}</span>') writer,
+		       ]]></when>
+					<when test="searchType == 3">title,writer,</when>
+					<otherwise>
+						title,writer,
+					</otherwise>
+				</choose>
+			</when>
+			<otherwise>
+				title,writer,
+			</otherwise>
+		</choose>
+		content, hit, reip, bdate FROM
+		(SELECT num, title, writer, content, hit,
+		reip, bdate,
+		(select fname from board_image where
+		board.num = board_image.inum and isthumb
+		= 1) as iname,
+		ROW_NUMBER()
+		OVER (ORDER BY num desc) AS row_num from board
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						title like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 2">
+						writer like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 3">
+						content like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+		) numbered_rows
+		WHERE row_num BETWEEN #{begin} AND #{end}
+	</select>
+
+	<select id="totalCount" resultType="int" parameterType="map">
+		select count(*) cnt from board
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						title like '%'||#{searchValue}||'%'
+					</when>
+					<when test="searchType == 2">
+						writer like '%'||#{searchValue}||'%'
+					</when>
+					<when test="searchType == 3">
+						content like '%'||#{searchValue}||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	</select>
+
+
+
+
+
+
+
+
 	<insert id="cadd" parameterType="bcvo">
 		insert into board_comm
 		values(board_comm_seq.nextVal, #{cnum}, #{writer},
