@@ -33,39 +33,20 @@ public class BoardController {
 	// uploadpro
 	@PostMapping("/uploadpro")
 	public String uploadFile(Model m, BoardVO vo, HttpServletRequest request) {
-		System.out.println(vo.toString());
+		String r_path = request.getSession().getServletContext().getRealPath("/");
 		
-		// parameter 테스트
-		System.out.println("나 왔다");
-		BoardVideoVO bvvo = videoUpload(vo, request);
-		System.out.println("비디오 왔다");
-		List<BoardImageVO> list = uploadImage(vo, request);
-		System.out.println("이미지 왔다");
-		System.out.println(bvvo.getVnum());
+		BoardVideoVO bvvo = videoUpload(vo, r_path);
+		List<BoardImageVO> list = uploadImage(vo, r_path);
 		service.addBoard(vo, list, bvvo);
 		return "redirect:upList";
 	}
 	
-	public BoardVideoVO videoUpload(BoardVO vo, HttpServletRequest request) {
-		System.out.println("비디오 안에 왔다");
+	public BoardVideoVO videoUpload(BoardVO vo, String r_path) {
 		BoardVideoVO bvvo = new BoardVideoVO();
 		MultipartFile vfile = vo.getVfile();
 		String oriVFn = vfile.getOriginalFilename();
 		
 		String video_path = "resources\\videofile";
-		
-		String r_path = request.getSession().getServletContext().getRealPath("/");
-		
-		long size = vfile.getSize();
-		String contentType = vfile.getContentType();
-//			* contentType의 종류
-//			- application/vnd.ms-excel
-//			- application/pdf
-//			- text/plain
-//			- application/haansofthwp
-//			- image/jpeg
-		System.out.println("file size: " + size);
-		System.out.println("file type: " + contentType);
 		
 		StringBuffer path = new StringBuffer();
 		path.append(r_path).append(video_path).append("\\");
@@ -74,43 +55,36 @@ public class BoardController {
 		
 		File f = new File(path.toString());
 
-		// 임시 메모리에 담긴 즉 업로드한 파일의 값 -> File클래스의 경로로 복사
 		try {
 			vfile.transferTo(f);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		bvvo.setVname(oriVFn);
 		bvvo.setReip(vo.getReip());
 		
 		return bvvo;
 	}
 	
-	public List<BoardImageVO> uploadImage(BoardVO vo, HttpServletRequest request){
+	public List<BoardImageVO> uploadImage(BoardVO vo, String r_path){
 		System.out.println("이미지 안에 왔다");
 		List<BoardImageVO> list = new ArrayList();
 		
 		List<MultipartFile> mfList = vo.getMflist();
 		String img_path = "resources\\imgfile";
-		String r_path = request.getSession().getServletContext().getRealPath("/");
+		
 		StringBuffer path = new StringBuffer();
 		path.append(r_path).append(img_path).append("\\");
 		
 		for(MultipartFile e : mfList) {
 			BoardImageVO bivo = new BoardImageVO();
 			String oriIFn = e.getOriginalFilename();
-			long size = e.getSize();
-			String contentType = e.getContentType();
 
-			System.out.println("file size: " + size);
-			System.out.println("file type: " + contentType);
 			path.append(oriIFn);
 			System.out.println("FullPath: " + path);
 			File f = new File(path.toString());
 
-			// 임시 메모리에 담긴 즉 업로드한 파일의 값 -> File클래스의 경로로 복사
 			try {
 				e.transferTo(f);
 			} catch (IllegalStateException | IOException error) {
