@@ -33,7 +33,7 @@
 			<div class="form-group">
 				<label for="title">юл╧лаЖ</label>
 				<div class="col-sm-10"><input type="file" class="form-control" id="mflist"
-					name="mflist[]" multiple="multiple">
+					name="mflist" multiple="multiple">
 			    </div>		
 			    <div class="col-sm-10">
 			    <img src="${rPath}/image/noimage.jpg" id="imgx"
@@ -87,5 +87,11 @@
 			}
 		})
 	})
+	
+	console.log($('#title').value);
+	console.log('#content');
+	console.log('#writer');
+	console.log('#mflist[]');
+	console.log('#vfile');
 </script>
 <%@include file="../temp/footer.jsp"%>

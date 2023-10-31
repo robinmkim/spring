@@ -15,16 +15,12 @@
 		</selectKey>
 		<foreach collection="list" item="e" separator=" "
 			open="insert all" close="select * from dual">
-			into board_image values(board_image_seq.nextVal, #{id},
+			into board_image values(#{id},
 			#{e.iname}, #{e.reip}, sysdate, #{e.isThumb})
 		</foreach>
 	</insert>
 	<insert id="addvideo" parameterType="bvvo">
-		<selectKey keyProperty="id" resultType="int" order="BEFORE">
-			select
-			board_seq.currVal from dual
-		</selectKey>
-		INSERT INTO board_video VALUES (board_video_seq.nextVal, #{id},
+		INSERT INTO board_video VALUES (board_video_seq.nextVal, board_seq.currVal,
 		#{vname}, #{reip}, sysdate)
 	</insert>
 	<insert id="cadd" parameterType="bcvo">

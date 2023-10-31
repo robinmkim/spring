@@ -8,6 +8,5 @@
 		<typeAlias type="kr.co.ictedu.mvc.dto.BoardImageVO" alias="bivo" />
 		<typeAlias type="kr.co.ictedu.mvc.dto.BoardVideoVO" alias="bvvo" />
 		<typeAlias type="kr.co.ictedu.mvc.dto.BoardCommVO" alias="bcvo" />
-
 	</typeAliases>
 </configuration>

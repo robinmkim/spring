@@ -33,13 +33,15 @@ public class BoardController {
 	// uploadpro
 	@PostMapping("/uploadpro")
 	public String uploadFile(Model m, BoardVO vo, HttpServletRequest request) {
+		System.out.println(vo.toString());
+		
 		// parameter 테스트
 		System.out.println("나 왔다");
 		BoardVideoVO bvvo = videoUpload(vo, request);
 		System.out.println("비디오 왔다");
 		List<BoardImageVO> list = uploadImage(vo, request);
 		System.out.println("이미지 왔다");
-		
+		System.out.println(bvvo.getVnum());
 		service.addBoard(vo, list, bvvo);
 		return "redirect:upList";
 	}
