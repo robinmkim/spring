@@ -7,7 +7,7 @@ public class SurveyVO {
 	private String sub;
 	private int code;
 	private String sdate;
-	private int surveyTotal;
+	private int surveytotal;
 	
 	//1. n°ü°è
 	private List<SurveyContentVO> survey;
@@ -44,12 +44,12 @@ public class SurveyVO {
 		this.sdate = sdate;
 	}
 
-	public int getSurveyTotal() {
-		return surveyTotal;
+	public int getSurveytotal() {
+		return surveytotal;
 	}
 
-	public void setSurveyTotal(int surveyTotal) {
-		this.surveyTotal = surveyTotal;
+	public void setSurveytotal(int surveyTotal) {
+		this.surveytotal = surveyTotal;
 	}
 
 	public List<SurveyContentVO> getSurvey() {

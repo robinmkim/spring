@@ -10,5 +10,6 @@
 		<typeAlias type="kr.co.ictedu.mvc.dto.MemberVO" alias="mvo" />
 		<typeAlias type="kr.co.ictedu.mvc.dto.MyLoginLoggerVO" alias="lvo" />
 		<typeAlias type="kr.co.ictedu.mvc.dto.SurveyVO" alias="svo" />
+		<typeAlias type="kr.co.ictedu.mvc.dto.SurveyContentVO" alias="scvo" />
 	</typeAliases>
 </configuration>

@@ -8,6 +8,31 @@
   	insert into survey values(survey_seq.nextVal, #{sub}, #{code}, sysdate)
   	</insert>
   	
+  	<!-- 
+  	1. parameterType = "java.util.list"
+  	   dao.insert("addcontent", list)
+  	2. survey_seeq.currVal 의 값을 처리하는 방법!
+  			selectKey 문법 인지
+  	3. 
+  	   foreach 문법
+  	   insert all -> open="insert all"
+  	   	into surveycontent values('A',1,'온다',0)
+		into surveycontent values('B',1,'안온다',0)	
+		into surveycontent values('C',1,'모른다',0)
+	   select * from dual; -> close = "select * from dual"
+		
+		for(VO e : arr)
+  	 -->
+  	
+  	<insert id="addcontent" parameterType="java.util.list">
+  		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+  			select survey_seq.currVal from dual
+  		</selectKey>
+  		<foreach collection="list" item="e" separator=" " open="insert all" close="select * from dual">
+  			into surveycontent values(#{e.subtype}, #{id}, #{e.surveytitle}, 0)
+  		</foreach>
+  	</insert>
+  	
   	<select id="list" resultType="fvo">     
   	</select>
   	

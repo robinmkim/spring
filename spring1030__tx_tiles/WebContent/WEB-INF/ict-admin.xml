@@ -15,8 +15,29 @@
 	<context:component-scan base-package="kr.co.ictedu.admin" />
 	<mvc:annotation-driven />
 	<mvc:resources location="/resources/" mapping="/resources/**" />
+	
+	<!-- Transactional AOP 설정 S-->
+	<bean id="tm" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="tm"/>
+	<!-- Transactional AOP 설정 E-->
+	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"/>
 		<property name="suffix" value=".jsp"/>
+	</bean>
+	<!-- MyBatis SqlSessionFactoryBean에서 기존의 config.xml에서 위임받은 설정을 한다. -->
+	<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:config/config.xml"/>
+		<property name="mapperLocations" value="classpath*:mapper/*.xml"/>
+	</bean>
+	
+	<!-- Spring 제공 하는 SqlSessionTemplate 
+		Dao에서 ss를 DI해야 한다.
+	-->
+	<bean id="ss" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="factoryBean"/>
 	</bean>
 </beans>
