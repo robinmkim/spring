@@ -32,7 +32,7 @@ public class BoardController {
 	@Autowired
 	private PageVO pageVO;
 
-	@RequestMapping(value = "/boardForm")
+	@RequestMapping(value = "/boardform")
 	public String boardForm() {
 		return "board/boardform";
 	}
@@ -45,7 +45,7 @@ public class BoardController {
 		BoardVideoVO bvvo = videoUpload(vo, r_path);
 		List<BoardImageVO> list = uploadImage(vo, r_path);
 		service.addBoard(vo, list, bvvo);
-		return "redirect:upList";
+		return "redirect:boardlist";
 	}
 	
 	public BoardVideoVO videoUpload(BoardVO vo, String r_path) {
@@ -81,28 +81,27 @@ public class BoardController {
 		List<MultipartFile> mfList = vo.getMflist();
 		String img_path = "resources\\imgfile";
 		
-		StringBuffer path = new StringBuffer();
-		path.append(r_path).append(img_path).append("\\");
-		
+		int i = 1;
 		for(MultipartFile e : mfList) {
+			StringBuffer path = new StringBuffer();
+			path.append(r_path).append(img_path).append("\\");
 			BoardImageVO bivo = new BoardImageVO();
 			String oriIFn = e.getOriginalFilename();
-
+			
 			path.append(oriIFn);
 			System.out.println("FullPath: " + path);
 			File f = new File(path.toString());
-
+			
 			try {
 				e.transferTo(f);
 			} catch (IllegalStateException | IOException error) {
 				error.printStackTrace();
 			}
 			
-			if(list.isEmpty()) {
-				bivo.setIsThumb(1);
-			} else {
-				bivo.setIsThumb(0);
-			}
+
+			bivo.setIsThumb(i);
+			i++;
+
 			
 			bivo.setIname(oriIFn);
 			bivo.setReip(vo.getReip());
@@ -161,11 +160,7 @@ public class BoardController {
 			System.out.println(e.getKey() + "," + e.getValue());
 		}
 		List<BoardVO> list = service.boardList(map);
-		for(BoardVO e: list) {
-			System.out.println(e.toString());
-		}
 		m.addAttribute("boardList", list);
-		System.out.println(list.size());
 		
 		int startPage = (int) ((pageVO.getNowPage() - 1) / pageVO.getPagePerBlock()) * pageVO.getPagePerBlock() + 1;
 		int endPage = startPage + pageVO.getPagePerBlock()- 1;
@@ -183,5 +178,35 @@ public class BoardController {
 		
 		return "board/boardlist";
 	}
-
+	@RequestMapping(value = "/boarddetail")
+	public String boardDetail(Model m, int num) {
+		BoardVO vo = service.boardDetail(num);
+		m.addAttribute("vo", vo);
+		return "board/boarddetail";
+	}
+	
+	@RequestMapping(value = "/boarddelete")
+	public String boardDelete(int num) {
+		
+		service.boardDelete(num);
+		return "redirect:boardlist";
+	}
+	
+	@RequestMapping(value = "/boardmodify")
+	public String boardModify(Model m, int num) {
+		BoardVO vo = service.boardDetail(num);
+		m.addAttribute("vo", vo);
+		
+		return "board/boardmodify";
+	}
+	
+	@RequestMapping(value = "imgdelete")
+	public String imgDelete(@RequestParam int num, @RequestParam String iname) {
+		BoardImageVO bivo = new BoardImageVO();
+		bivo.setIname(iname);
+		bivo.setInum(num);
+		service.imgDelete(bivo);
+		
+		return "redirect:boardmodify?num="+num;
+	}
 }

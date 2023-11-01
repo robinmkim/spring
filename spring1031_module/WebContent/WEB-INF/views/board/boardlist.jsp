@@ -34,8 +34,8 @@
 				<c:forEach var="list" items="${boardList}">
 					<tr>
 						<td>${list.num}</td>
-						<td><a href="boardDetail?num=${list.num}">
-							<img src ="${rPath}/imgfile/${list.iname}"
+						<td><a href="boarddetail?num=${list.num}">
+							<img src ="${rPath}/imgfile/${list.thumbName}"
 							style="width: 80px; border: dotted 1px; cursor: pointer;"></a></td>
 						<td>${list.title} <span style="color:red;">[${list.cnt}]</span></td>
 						<td>${list.writer}</td>
@@ -51,7 +51,7 @@
 				<tr>
 					<th colspan="6">
 						<%-- 기존의 리스트 모델로 요청을 보낸다. --%>
-						<form class="d-flex" method="post" action="upList">
+						<form class="d-flex" method="post" action="boardlist">
 							<select class="form-control btn-mini" 
 							    name="searchType" id="searchType"
 								style="margin-left: 120px;">
@@ -70,7 +70,7 @@
 				<tr>
 					<td colspan="6" style="text-align: right;">
 						<button type="button" class="btn btn-outline-secondary"
-						onclick="location='upform'"
+						onclick="location='boardform'"
 						>글작성</button>
 					</td>
 				</tr>

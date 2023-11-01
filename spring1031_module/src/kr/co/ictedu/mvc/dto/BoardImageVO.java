@@ -1,18 +1,12 @@
 package kr.co.ictedu.mvc.dto;
 
 public class BoardImageVO {
-	 private int num ;
 	   private int inum ;
 	   private String iname ;
 	   private String reip ;
 	   private String iregdate ;
 	   private int isThumb ;
-	   public int getNum() {
-	      return num;
-	   }
-	   public void setNum(int num) {
-	      this.num = num;
-	   }
+	   
 	   public int getInum() {
 	      return inum;
 	   }

@@ -32,7 +32,7 @@
 			
 			<div class="form-group">
 				<label for="title">이미지</label>
-				<div class="col-sm-10"><input type="file" class="form-control" id="mflist"
+				<div class="col-sm-10"><input type="file" accept="image/*" class="form-control" id="mflist"
 					name="mflist" multiple="multiple">
 			    </div>		
 			    <div class="col-sm-10">
@@ -43,7 +43,7 @@
 			</div>
 			<div class="form-group">
 				<label for="title">비디오</label>
-				<div class="col-sm-10"><input type="file" class="form-control" id="vfile"
+				<div class="col-sm-10"><input type="file" accept="video/*" class="form-control" id="vfile"
 					name="vfile" >
 			    </div>		
 			    <div class="col-sm-10">

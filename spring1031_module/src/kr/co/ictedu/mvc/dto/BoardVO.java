@@ -13,8 +13,10 @@ public class BoardVO {
 	private String reip;
 	private String bdate;
 	private List<MultipartFile> mflist;
+	private List<String> imgName;
 	private MultipartFile vfile;
-	private String iname;
+	private String videoName;
+	private String thumbName;
 	private int cnt;
 	
 	public int getNum() {
@@ -28,62 +30,48 @@ public class BoardVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-		System.out.println("title");
 	}
 	public String getWriter() {
 		return writer;
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
-		System.out.println("writer");
 	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
-		System.out.println("content");
 	}
 	public int getHit() {
 		return hit;
 	}
 	public void setHit(int hit) {
 		this.hit = hit;
-		System.out.println("hit");
 	}
 	public String getReip() {
 		return reip;
 	}
 	public void setReip(String reip) {
 		this.reip = reip;
-		System.out.println("reip");
 	}
 	public String getBdate() {
 		return bdate;
 	}
 	public void setBdate(String bdate) {
 		this.bdate = bdate;
-		System.out.println("bdate");
 	}
 	public List<MultipartFile> getMflist() {
 		return mflist;
 	}
 	public void setMflist(List<MultipartFile> mflist) {
 		this.mflist = mflist;
-		System.out.println("mflist");
 	}
 	public MultipartFile getVfile() {
 		return vfile;
 	}
 	public void setVfile(MultipartFile vfile) {
-		System.out.println("vfile");
 		this.vfile = vfile;
-	}
-	public String getIname() {
-		return iname;
-	}
-	public void setIname(String iname) {
-		this.iname = iname;
 	}
 	public int getCnt() {
 		return cnt;
@@ -91,11 +79,22 @@ public class BoardVO {
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
-	@Override
-	public String toString() {
-		return "BoardVO [title=" + title + ", writer=" + writer + ", content=" + content + ", hit=" + hit + ", reip="
-				+ reip + ", bdate=" + bdate + ", mflist=" + mflist + ", vfile=" + vfile + "]";
+	public List<String> getImgName() {
+		return imgName;
 	}
-	
-	
+	public void setImgName(List<String> imgName) {
+		this.imgName = imgName;
+	}
+	public String getVideoName() {
+		return videoName;
+	}
+	public void setVideoName(String videoName) {
+		this.videoName = videoName;
+	}
+	public String getThumbName() {
+		return thumbName;
+	}
+	public void setThumbName(String thumbName) {
+		this.thumbName = thumbName;
+	}
 }

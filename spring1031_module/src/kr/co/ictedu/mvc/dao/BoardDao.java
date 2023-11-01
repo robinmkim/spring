@@ -45,6 +45,41 @@ public class BoardDao implements BoardDaoInter{
 		return ss.selectOne("board.totalCount", map);
 	}
 
+	@Override
+	public BoardVO boardDetail(int num) {
+		return ss.selectOne("board.detail", num);
+	}
+
+	@Override
+	public void boardDelete(int num) {
+		ss.delete("board.delete", num);
+		
+	}
+
+	@Override
+	public void imgDelete(BoardImageVO bivo) {
+		ss.delete("board.imgdelete", bivo);
+		
+	}
+
+	@Override
+	public void thumbUpdate(BoardImageVO bivo) {
+		ss.update("board.thumbupdate",bivo);
+		
+	}
+
+	@Override
+	public void videoUpdate(BoardVideoVO bvvo) {
+		ss.update("board.vupdate", bvvo);
+		
+	}
+
+	@Override
+	public void boardUpdate(BoardVO bvo) {
+		ss.update("board.update", bvo);
+		
+	}
+
 	
 	
 }

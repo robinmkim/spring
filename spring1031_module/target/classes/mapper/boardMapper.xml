@@ -51,14 +51,23 @@
 				title,writer,
 			</otherwise>
 		</choose>
-		content, hit, reip, bdate FROM
-		(SELECT num, title, writer, content, hit,
+		content, hit, reip, bdate, thumbName, cnt FROM
+		(SELECT num, title,
+		writer,
+		content,
+		hit,
 		reip, bdate,
 		(select fname from board_image where
-		board.num = board_image.inum and isthumb
-		= 1) as iname,
+		board.num
+		=
+		board_image.inum and isthumb
+		= 1) as thumbName,
+		(select count(*)
+		from
+		board_comm where board.num = board_comm.cnum) AS cnt,
 		ROW_NUMBER()
-		OVER (ORDER BY num desc) AS row_num from board
+		OVER
+		(ORDER BY num desc) AS row_num from board
 		<if test="searchValue != null and searchType != null">
 			<where>
 				<choose>
@@ -97,12 +106,26 @@
 		</if>
 	</select>
 
+	<resultMap type="bvo" id="boarddetail">
+		<id property="num" column="num" javaType="int" />
+		<result property="videoName" column="videoName" />
+		<result property="title" column="title" />
+		<result property="bdate" column="bdate" />
+		<result property="writer" column="writer" />
+		<collection property="imgName" javaType="java.util.List"
+			ofType="String">
+			<result property="iname" column="iname" javaType="String" />
+		</collection>
+	</resultMap>
 
-
-
-
-
-
+	<select id="detail" parameterType="int" resultMap="boarddetail">
+		select b.num
+		num , i.fname iname, v.fname videoName, b.title title, b.writer
+		writer, b.bdate bdate
+		from board b join board_image i on b.num = i.inum
+		join board_video v on b.num = v.vnum
+		where b.num = #{num}
+	</select>
 
 	<insert id="cadd" parameterType="bcvo">
 		insert into board_comm
@@ -110,4 +133,32 @@
 		#{content}, #{reip},
 		sysdate)
 	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE from board where num = ${num}
+	</delete>
+	<delete id="imgdelete" parameterType="bivo">
+		delete from board_image where inum = #{inum} and fname = #{iname}
+	</delete>
+	<update id="update" parameterType="bvo">
+		update board set title=#{title}, content=#{content} where num=#{num}
+	</update>
+	<update id="vupdate" parameterType="bvvo">
+		update board_video set fname=#{vname}, vregdate=sysdate
+	</update>
+	<update id="thumbupdate" parameterType="bivo">
+		update board_image set fname=#{iname}, iregdate=sysdate
+	</update>
+	<insert id="addimg" parameterType="java.util.List">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select
+			board_seq.currVal from dual
+		</selectKey>
+		<foreach collection="list" item="e" separator=" "
+			open="insert all" close="select * from dual">
+			into board_image values(#{id},
+			#{e.iname},
+			#{e.reip}, sysdate, #{e.isThumb})
+		</foreach>
+	</insert>
+	
 </mapper>

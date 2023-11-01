@@ -31,4 +31,24 @@ public class BoardService {
 	public int getTotal(Map<String, String> map) {
 		return dao.getTotal(map);
 	}
+	
+	public BoardVO boardDetail(int num) {
+		BoardVO vo = dao.boardDetail(num);
+		List<String> list = vo.getImgName();
+		System.out.println(list);
+		return vo;
+	}
+	
+	public void boardDelete(int num) {
+		dao.boardDelete(num);
+	}
+	
+	public void imgDelete(BoardImageVO bivo) {
+		dao.imgDelete(bivo);
+	}
+	
+	public void boardUpdate(BoardVO bvo, BoardImageVO bivo, BoardVideoVO bvvo, List<BoardImageVO> list) {
+		
+	}
+	
 }
