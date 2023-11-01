@@ -10,4 +10,6 @@ public interface SurveyDaoInter {
 	public void addSurveyContent(List<SurveyContentVO> list);
 	public List<SurveyVO> listSurvey();
 	public SurveyVO adminDetail(int num);
+	
+	public void deletes(int num);
 }

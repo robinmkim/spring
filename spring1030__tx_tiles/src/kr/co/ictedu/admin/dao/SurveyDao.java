@@ -8,12 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.ictedu.mvc.dto.SurveyContentVO;
 import kr.co.ictedu.mvc.dto.SurveyVO;
+
 @Repository
-public class SurveyDao implements SurveyDaoInter{
-	
+public class SurveyDao implements SurveyDaoInter {
+
 	@Autowired
 	private SqlSessionTemplate ss;
-	
+
 	@Override
 	public void addSurvey(SurveyVO vo) {
 		ss.insert("survey.add", vo);
@@ -32,12 +33,17 @@ public class SurveyDao implements SurveyDaoInter{
 	@Override
 	public SurveyVO adminDetail(int num) {
 		SurveyVO vo = ss.selectOne("survey.admindetail", num);
-		//검수
+		// 검수
 		List<SurveyContentVO> list = vo.getSurvey();
 		System.out.println("SurveyContentVO size: " + list.size());
-		
+
 		return vo;
 	}
-	
-	
+
+	@Override
+	public void deletes(int num) {
+		ss.delete("board.delete", num);
+
+	}
+
 }
