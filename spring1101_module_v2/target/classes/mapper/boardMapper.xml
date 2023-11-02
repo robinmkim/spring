@@ -88,8 +88,31 @@
 	</delete>
 	
 	<update id="update" parameterType="bvo">
-		update board set title=#{title}, content=#{content}, imgn=#{imgn}, vidn=#{vidn}
+		update board set title=#{title}, content=#{content}, imgn=#{imgn}, vidn=#{vidn} where num = #{num}
 	</update>
+	
+	<insert id="addComm" parameterType="bcvo">
+		insert into board_comm values(board_comm_seq.nextVal, #{cnum}, #{cwriter}, #{ccontent}, #{reip}, sysdate) 
+	</insert>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE board SET hit = hit+1 WHERE num=#{num}
+	</update>
+	<select id="listComm" resultType="bcvo" parameterType="map">
+		SELECT * FROM (
+		SELECT ROWNUM r_num, a.* FROM (
+		SELECT * FROM
+		board_comm where cnum = #{num}
+		ORDER BY 1 DESC
+		) a
+		) WHERE r_num
+		BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="totalCountComm" resultType="int" parameterType="map">
+		select count(*) cnt from
+		board_comm
+		where cnum = #{num}
+	</select>
 </mapper>
 
 

@@ -46,13 +46,25 @@ public class BoardDao implements BoardDaoInter{
 		
 	}
 
-
 	@Override
 	public void boardUpdate(BoardVO bvo) {
 		ss.update("board.update", bvo);
 		
 	}
-
-	
-	
+	@Override
+	public void commAdd(BoardCommVO bcvo) {
+		ss.insert("board.addComm", bcvo);
+	}
+	@Override
+	public void hitUpdate(int num) {
+		ss.update("board.updateHit", num);
+	}
+	@Override
+	public List<BoardCommVO> commList(Map<String, String> map) {
+		return ss.selectList("board.listComm", map);
+	}
+	@Override
+	public int commTotal(Map<String, String> map) {
+		return ss.selectOne("board.totalCountComm", map);
+	}
 }

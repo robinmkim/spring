@@ -18,8 +18,8 @@ public class BoardVO {
 	private String vidn;
 	
 	//View data
-	private List<MultipartFile> mflist;
-	private MultipartFile mfile;
+	private List<MultipartFile> mflist; //image
+	private MultipartFile mfile; //video
 	private String[] imglist;
 	private int cnt;
 	
